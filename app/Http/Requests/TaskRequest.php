@@ -100,6 +100,10 @@ class TaskRequest extends FormRequest
                     $old = $task->status;
                     $new = $this->status;
 
+                    if ($new === $old) {
+                        return;
+                    }
+
                     if ($new && ($old === Task::STATUS_DONE && $new !== Task::STATUS_DONE)) {
                         $validator->errors()->add('status', "Cannot change status from DONE.");
                     }
